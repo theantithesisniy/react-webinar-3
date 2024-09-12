@@ -5,6 +5,9 @@ class Store {
   constructor(initState = {}) {
     this.state = initState;
     this.listeners = []; // Слушатели изменений состояния
+    this.maxCode = initState.list.length > 0
+      ? Math.max(...initState.list.map(item => item.code))  //находим максимальное значение поля code в существующих элементах
+      : 0;
   }
 
   /**
@@ -42,9 +45,10 @@ class Store {
    * Добавление новой записи
    */
   addItem() {
+    this.maxCode += 1;
     this.setState({
       ...this.state,
-      list: [...this.state.list, { code: this.state.list.length + 1, title: 'Новая запись' }],
+      list: [...this.state.list, { code: this.maxCode, title: 'Новая запись', selected: false, selectCount: 0 }],
     });
   }
 
@@ -63,17 +67,23 @@ class Store {
    * Выделение записи по коду
    * @param code
    */
+
   selectItem(code) {
     this.setState({
       ...this.state,
       list: this.state.list.map(item => {
         if (item.code === code) {
-          item.selected = !item.selected;
+          return {
+            ...item,
+            selected: !item.selected,
+            selectCount: !item.selected ? item.selectCount + 1 : item.selectCount,
+          };
         }
-        return item;
+        return { ...item, selected: false };
       }),
     });
   }
+
 }
 
 export default Store;
