@@ -26,3 +26,13 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function getSelectCountLabel(count) {
+  if (count === 1) {
+    return 'раз';
+  } else if (count >= 2 && count <= 4) {
+    return 'раза';
+  } else {
+    return 'раз';
+  }
+}

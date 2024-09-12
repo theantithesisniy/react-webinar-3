@@ -1,5 +1,6 @@
 import React from 'react';
 import './styles.css';
+import { getSelectCountLabel } from './utils';
 
 /**
  * Приложение
@@ -30,7 +31,7 @@ function App({ store }) {
                 <div className="Item-title">{item.title}</div>
                 {item.selectCount > 0 && (
                   <div className="Item-select-count">
-                    Выделяли {item.selectCount} раз{item.selectCount > 1 ? 'а' : ''}
+                    Выделяли {item.selectCount} {getSelectCountLabel(item.selectCount)}
                   </div>
                 )}
                 <div className="Item-actions">
