@@ -27,12 +27,22 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export function getSelectCountLabel(count) {
-  if (count === 1) {
-    return 'раз';
-  } else if (count >= 2 && count <= 4) {
-    return 'раза';
-  } else {
-    return 'раз';
+export function pluralize(count, word, endings=['а']) {
+  const lastDigit = count % 10;
+  const lastTwoDigit = count % 100;
+
+  if(lastTwoDigit >= 11 && lastTwoDigit <=19) {
+    return word;
   }
+
+  if(lastDigit === 1) {
+    return word;
+  }
+
+  if(lastDigit >= 2 && lastTwoDigit <= 4) {
+    return word + endings[0];
+  }
+
+  return word;
+  
 }

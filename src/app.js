@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles.css';
-import { getSelectCountLabel } from './utils';
+import { pluralize } from './utils';
 
 /**
  * Приложение
@@ -31,7 +31,7 @@ function App({ store }) {
                 <div className="Item-title">{item.title}</div>
                 {item.selectCount > 0 && (
                   <div className="Item-select-count">
-                    Выделяли {item.selectCount} {getSelectCountLabel(item.selectCount)}
+                    | Выделяли {item.selectCount} {pluralize(item.selectCount, 'раз')}
                   </div>
                 )}
                 <div className="Item-actions">
