@@ -25,15 +25,16 @@ function App({ store }) {
             <div key={item.code} className="List-item">
               <div
                 className={'Item' + (item.selected ? ' Item_selected' : '')}
-                onClick={() => store.selectItem(item.code)}
-              >
+                onClick={() => store.selectItem(item.code)}>
                 <div className="Item-code">{item.code}</div>
-                <div className="Item-title">{item.title}</div>
-                {item.selectCount > 0 && (
-                  <div className="Item-select-count">
-                    | Выделяли {item.selectCount} {pluralize(item.selectCount, 'раз')}
-                  </div>
-                )}
+                <div className="Item-title">
+                  {item.title}
+                  {item.selectCount > 0 && (
+                    <span className="Item-select-count">
+                      | Выделяли {item.selectCount} {pluralize(item.selectCount, 'раз')}
+                    </span>
+                  )}
+                </div>
                 <div className="Item-actions">
                   <button onClick={() => store.deleteItem(item.code)}>Удалить</button>
                 </div>
@@ -43,6 +44,7 @@ function App({ store }) {
         </div>
       </div>
     </div>
+
   );
 }
 

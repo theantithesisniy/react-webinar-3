@@ -27,22 +27,29 @@ export function createElement(name, props = {}, ...children) {
   return element;
 }
 
-export function pluralize(count, word, endings=['а']) {
+/**
+ * Плюрализация слова "раз" в зависимости от числового значения
+ * @param count {Number} Число, определяющее форму слова
+ * @param word {String} Базовое слово, которое будет изменяться (например, "раз")
+ * @param endings {Array<String>} Список окончаний для множественной формы (по умолчанию ['а'])
+ * @returns {String} Возвращает слово в правильной форме: "раз" или "раза"
+ */
+
+export function pluralize(count, word, endings = ['а']) {
   const lastDigit = count % 10;
-  const lastTwoDigit = count % 100;
+  const lastTwoDigits = count % 100;
 
-  if(lastTwoDigit >= 11 && lastTwoDigit <=19) {
+  if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
     return word;
   }
 
-  if(lastDigit === 1) {
+  if (lastDigit === 1) {
     return word;
   }
 
-  if(lastDigit >= 2 && lastTwoDigit <= 4) {
+  if (lastDigit >= 2 && lastDigit <= 4) {
     return word + endings[0];
   }
 
   return word;
-  
 }
