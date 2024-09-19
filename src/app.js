@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import BasketManager from './components/basket-manager';
-import Head from './components/Head';
-import List from './components/List';
+import Head from './components/head/index';
+import List from './components/list/index';
 import PageLayout from './components/page-layout/index';
 
 
