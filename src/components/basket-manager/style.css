@@ -1,0 +1,21 @@
+.BasketManager {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+  padding-left: 10px;
+  align-items: center;
+}
+
+.BasketManager button {
+  margin-left: 10px;
+  width: 76px;
+  height: 21px;
+}
+
+.BasketManager-nonEmptyBasket strong{
+  margin-left: 10px;
+}
+
+.BasketManager-EmptyBasket strong{
+  margin-left: 10px;
+}

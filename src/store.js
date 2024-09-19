@@ -5,7 +5,11 @@ import { generateCode } from './utils';
  */
 class Store {
   constructor(initState = {}) {
-    this.state = initState;
+    this.state = {
+      ...initState,
+      basket: []
+    };
+
     this.listeners = []; // Слушатели изменений состояния
   }
 
@@ -51,15 +55,41 @@ class Store {
   }
 
   /**
-   * Удаление записи по коду
+   * Добавление записи по коду в корзину
    * @param code
    */
-  deleteItem(code) {
-    this.setState({
-      ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code),
-    });
+  addItemToBasket(code) {
+    const item = this.state.list.find(item => item.code === code);
+
+    if (item) {
+      const basketItem = this.state.basket.find(basketItem => basketItem.code === code);
+
+      if (basketItem) {
+        // Если товар уже есть в корзине, увеличиваем его количество
+        this.setState({
+          ...this.state,
+          basket: this.state.basket.map(basketItem =>
+            basketItem.code === code
+              ? { ...basketItem, quantity: basketItem.quantity + 1 }
+              : basketItem
+          )
+        });
+      } else {
+        // Если товара еще нет в корзине, добавляем его с количеством 1
+        this.setState({
+          ...this.state,
+          basket: [...this.state.basket, { ...item, quantity: 1 }]
+        });
+      }
+    }
+  }
+
+  /**
+   * Общая стоимость товаров в корзине
+   * @param getBasketTotal
+   */
+  getBasketTotal() {
+    return this.state.basket.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
   /**

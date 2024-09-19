@@ -50,3 +50,13 @@ export const generateCode1 = (function (start = 0) {
 export function generateCode2() {
   return generateCode2.value ? ++generateCode2.value : (generateCode2.value = 1);
 }
+
+/**
+ * Форматирует число как валютный формат с использованием локали ru-RU.
+ * Возвращает строковое представление числа в формате с копейками и символом рубля.
+ * @param {number} amount Число, которое нужно отформатировать.
+ */
+
+export function formatCurrency(amount) {
+  return amount.toLocaleString('ru-RU') + ' ₽';
+}

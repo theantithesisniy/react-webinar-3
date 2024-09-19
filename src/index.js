@@ -4,7 +4,8 @@ import { generateCode } from './utils.js';
 import App from './app.js';
 import Store from './store.js';
 
-const store = new Store({
+
+export const store = new Store({
   list: [
     { code: generateCode(), title: 'Название товара', price: 100.0 },
     { code: generateCode(), title: 'Книга про React', price: 770 },

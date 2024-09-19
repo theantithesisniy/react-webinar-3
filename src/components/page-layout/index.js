@@ -1,9 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { cn as bem } from '@bem-react/classname';
+import React from 'react';
 import './style.css';
 
-function PageLayout({ children }) {
+function PageLayout({ children = null }) {  // если бы использовали typescript, то { children = null as React.ReactNode }
   const cn = bem('PageLayout');
 
   return (
@@ -12,9 +11,5 @@ function PageLayout({ children }) {
     </div>
   );
 }
-
-PageLayout.propTypes = {
-  children: PropTypes.node,
-};
 
 export default React.memo(PageLayout);
