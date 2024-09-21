@@ -57,6 +57,10 @@ export function generateCode2() {
  * @param {number} amount Число, которое нужно отформатировать.
  */
 
-export function formatCurrency(amount) {
-  return amount.toLocaleString('ru-RU') + ' ₽';
+export function formatCurrency(
+  amount, 
+  options = { style: 'currency', currency: 'RUB', minimumFractionDigits: 0, maximumFractionDigits: 2 },
+) {
+  return new Intl.NumberFormat('ru-RU', options).format(amount);
 }
+

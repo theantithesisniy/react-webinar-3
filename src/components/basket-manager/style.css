@@ -12,10 +12,14 @@
   height: 21px;
 }
 
-.BasketManager-nonEmptyBasket strong{
+.BasketManager-nonEmptyBasket strong {
   margin-left: 10px;
 }
 
-.BasketManager-EmptyBasket strong{
+.BasketManager-emptyBasket strong {
   margin-left: 10px;
+}
+
+.BasketManager-emptyBasket-text {
+  padding-left: 12px;
 }

@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import BasketManager from './components/basket-manager';
+import BasketButton from './components/basket-button';
 import Head from './components/head/index';
 import List from './components/list/index';
+import ModalLayout from './components/modal-layout/index';
 import PageLayout from './components/page-layout/index';
-
+import useBasket from './hooks/useBasket';
+import { useModal } from './hooks/useModal';
 
 /**
  * Приложение
@@ -13,7 +16,8 @@ import PageLayout from './components/page-layout/index';
 
 function App({ store }) {
   const [list, setList] = useState(store.getState().list);
-
+  const { basket } = useBasket();
+  const {showModal, openModal, closeModal} = useModal();
 
   useEffect(() => {
     const unsubscribe = store.subscribe(() => {
@@ -32,8 +36,16 @@ function App({ store }) {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <BasketManager />
-      <List list={list} addItemToBasket={addItemToBasket} />
+      <ModalLayout >
+        <BasketManager />
+        <BasketButton
+          showModal={showModal}
+          openModal={openModal}
+          closeModal={closeModal}
+          basket={basket}
+        />
+      </ModalLayout>
+      <List list={list} basket={basket} type='list' addItemToBasket={addItemToBasket} />
     </PageLayout>
   );
 }

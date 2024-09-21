@@ -1,0 +1,12 @@
+.ModalLayout {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+  padding-left: 10px;
+  align-items: center;
+}
+
+.ModalLayout button {
+  width: 76px;
+  height: 21px;
+}

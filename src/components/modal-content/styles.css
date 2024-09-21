@@ -1,4 +1,14 @@
-.modal {
+.ModalContent-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.ModalContent-modal {
   box-sizing: border-box;
   position: fixed;
   top: 50%;
@@ -13,85 +23,45 @@
   overflow: hidden;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
+.ModalContent-modal-content {
+  overflow: auto;
+  height: 100%;
 }
 
-.modal-content {
-  overflow: auto; /* Добавляем скроллбар при необходимости */
-  height: 100%; /* Занимает всю высоту модального окна */
-}
-
-.modal-header {
+.ModalContent-modal-header {
   background: #f5f5f5;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.modal-header h2 {
+.ModalContent-modal-header h2 {
   margin-left: 20px;
   font-size: 32px;
 }
 
-.modal-btn {
+.ModalContent-modal-btn {
   margin-right: 32px;
 }
 
-.Item {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  transition: background-color 1s;
+.ModalContent-modal-items {
+  padding-top: 71px;
 }
 
-.modal-items {
-  padding-top: 25px; /* Отступ сверху для корректного отображения */
+.ModalContent-empty-basket {
+  text-align: center;
 }
 
-.Dashed {
-  border-top: 1px dashed #ccc;
-  border-bottom: 1px dashed #ccc;
-}
-
-.Item-code,
-.Item-title {
-  padding: 20px 10px;
-}
-
-.Item-title {
-  flex: 1;
-}
-
-.modal-price {
-  margin-right: 77px;
+.ModalContent-modal-price {
+  margin-right: 57px;
   font-weight: bold;
   font-size: 18px;
   padding-right: 20px;
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: flex-end;
 }
 
-.modal-price .label {
-  margin-right: 53px; 
-}
-
-.Item-quantity {
-  margin-left: 62px;
-}
-
-.Item-actions-btn {
-  margin-left: 22px;
-  margin-right: 11px;
-}
-
-.Item-EmtyBasket {
-  text-align: center;
+.ModalContent-label {
+  margin-right: 53px;
 }

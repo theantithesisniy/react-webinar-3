@@ -89,7 +89,12 @@ class Store {
    * @param getBasketTotal
    */
   getBasketTotal() {
-    return this.state.basket.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    return this.state.basket.reduce((sum, item) => {
+      // Приведение цены к числу, если это не число.
+      const price = parseFloat(item.price) || 0;
+      const quantity = parseInt(item.quantity, 10) || 0;
+      return sum + price * quantity;
+    }, 0);
   }
 
   /**

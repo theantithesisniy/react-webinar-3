@@ -1,39 +1,28 @@
+import { cn as bem } from '@bem-react/classname';
 import React from 'react';
-import { createPortal } from 'react-dom';
 import useBasket from '../../hooks/useBasket';
-import { useModal } from '../../hooks/useModal';
-import { plural } from '../../utils';
-import ModalContent from '../modal-content/index';
+import { formatCurrency, plural } from '../../utils';
 import './style.css';
 
 function BasketManager() {
-  const { showModal, openModal, closeModal } = useModal();
-  const { basket, basketTotal, removeItemFromBasket } = useBasket();
+  const { basket, basketTotal } = useBasket();
+  const cn = bem('BasketManager');
 
   return (
-    <div className="BasketManager">
+    <div className={cn()}>
       {basket.length === 0 ? (
-        <p className='BasketManager-emptyBasket'>В корзине: <strong>пусто</strong></p>
+        <p className={cn('emptyBasket')}>
+          В корзине: <strong className={cn('emptyBasket', 'text')}>пусто</strong>
+        </p>
       ) : (
-        <p className='BasketManager-nonEmptyBasket'>В корзине:
+        <p className={cn('nonEmptyBasket')}>
+          В корзине:
           <strong>
-            {basket.length} {plural(basket.length, { one: 'товар', few: 'товара', many: 'товаров' })} /
-          </strong>
-          <strong>
-            {basketTotal} ₽
+            {basket.length} {plural(basket.length, { one: 'товар', few: 'товара', many: 'товаров' })}
+            <span> / </span>
+            {formatCurrency(basketTotal)}
           </strong>
         </p>
-      )}
-
-      <button onClick={openModal}>Перейти</button>
-      
-      {showModal && createPortal(
-        <ModalContent
-          onClose={closeModal}
-          basket={basket}
-          onRemoveItem={removeItemFromBasket}
-        />,
-        document.body
       )}
     </div>
   );
