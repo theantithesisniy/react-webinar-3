@@ -1,5 +1,5 @@
-import { memo } from 'react';
 import PropTypes from 'prop-types';
+import { memo } from 'react';
 import './style.css';
 
 function Controls({ onAdd }) {
@@ -15,7 +15,7 @@ Controls.propTypes = {
 };
 
 Controls.defaultProps = {
-  onAdd: () => {},
+  onAdd: () => { },
 };
 
 export default memo(Controls);

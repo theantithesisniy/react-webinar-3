@@ -16,9 +16,7 @@ function Basket() {
   }));
 
   const callbacks = {
-    // Удаление из корзины
     removeFromBasket: useCallback(_id => store.actions.basket.removeFromBasket(_id), [store]),
-    // Закрытие любой модалки
     closeModal: useCallback(() => store.actions.modals.close(), [store]),
   };
 
@@ -30,9 +28,8 @@ function Basket() {
       [callbacks.removeFromBasket],
     ),
   };
-
   return (
-    <ModalLayout title="Корзина" onClose={callbacks.closeModal}>
+    <ModalLayout titleKey="modalTitle" onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
       <BasketTotal sum={select.sum} />
     </ModalLayout>

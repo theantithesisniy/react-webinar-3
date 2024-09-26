@@ -1,0 +1,17 @@
+.ProductPage {
+  max-width: 943px;
+  width: 100%;
+  margin: 0 auto;
+	font-size: 18px;
+}
+
+.ProductPage-price {
+font-size: 24px;
+}
+
+.ProductPage-loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  padding-top: 50px;
+}
