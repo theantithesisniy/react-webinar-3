@@ -10,8 +10,14 @@
 }
 
 .ItemBasket-title {
+  color: #000;
   width: 100%;
   padding: 20px 10px;
+  text-decoration: none;
+}
+
+.ItemBasket-title:hover {
+  text-decoration: underline;
 }
 
 .ItemBasket-right {

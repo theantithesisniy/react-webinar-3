@@ -1,34 +1,28 @@
 import { cn as bem } from '@bem-react/classname';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
-import { Link } from 'react-router-dom';
 import { numberFormat, plural } from '../../utils';
-import { useLanguage } from '../language-context';
-import { translations } from '../../translations'; 
 import './style.css';
 
-function BasketTool({ sum, amount, onOpen }) {
+function BasketTool(props) {
+  const { sum, amount, onOpen, texts } = props;
   const cn = bem('BasketTool');
-  const { language } = useLanguage();
 
   return (
     <div className={cn('')}>
-      <Link to='/' className={cn('link')}>
-        {translations[language].main}
-      </Link>
       <div className={cn('content')}>
-        <span className={cn('label')}>{translations[language].basketLabel}:</span> 
+        <span className={cn('label')}>{texts.basketLabel}:</span>
         <span className={cn('total')}>
           {amount
             ? `${amount} ${plural(amount, {
-              one: translations[language].itemOne,
-              few: translations[language].itemFew,
-              many: translations[language].itemMany,
+              one: texts.itemOne,
+              few: texts.itemFew,
+              many: texts.itemMany,
             })} / ${numberFormat(sum)} ₽`
-            : translations[language].empty}
+            : texts.empty}
         </span>
         <button onClick={onOpen}>
-          {translations[language].goToBasket}
+          {texts.goToBasket}
         </button>
       </div>
     </div>
@@ -47,4 +41,4 @@ BasketTool.defaultProps = {
   amount: 0,
 };
 
-export default memo(BasketTool);
+ export default memo(BasketTool);

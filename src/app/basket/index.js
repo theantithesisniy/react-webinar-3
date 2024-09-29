@@ -1,10 +1,13 @@
 import { memo, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import BasketTotal from '../../components/basket-total';
 import ItemBasket from '../../components/item-basket';
+import { useLanguage } from '../../components/language-context';
 import List from '../../components/list';
 import ModalLayout from '../../components/modal-layout';
-import BasketTotal from '../../components/basket-total';
-import useStore from '../../store/use-store';
 import useSelector from '../../store/use-selector';
+import useStore from '../../store/use-store';
+import { translations } from '../../translations';
 
 function Basket() {
   const store = useStore();
@@ -23,15 +26,31 @@ function Basket() {
   const renders = {
     itemBasket: useCallback(
       item => {
-        return <ItemBasket item={item} onRemove={callbacks.removeFromBasket} />;
+        return (
+          <ItemBasket
+            texts={translations[language]}
+            link={`/articles/${item._id}`}
+            item={item}
+            onRemove={callbacks.removeFromBasket}
+            onLinkClick={handleLinkClick(`/articles/${item._id}`)} />
+        );
       },
       [callbacks.removeFromBasket],
     ),
   };
+  const { language } = useLanguage();
+  const navigate = useNavigate();
+
+  const handleLinkClick = (link) => (e) => {
+    e.preventDefault();
+    callbacks.closeModal();
+    navigate(link)
+  }
+
   return (
-    <ModalLayout titleKey="modalTitle" onClose={callbacks.closeModal}>
+    <ModalLayout texts={translations[language]} titleKey="modalTitle" onClose={callbacks.closeModal}>
       <List list={select.list} renderItem={renders.itemBasket} />
-      <BasketTotal sum={select.sum} />
+      <BasketTotal texts={translations[language]} sum={select.sum} />
     </ModalLayout>
   );
 }

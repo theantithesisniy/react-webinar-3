@@ -8,21 +8,25 @@ import { useLanguage } from '../language-context';
 
 import './style.css';
 
-function Item(props) {
+function Item({ item, onAdd, link, texts }) {
   const cn = bem('Item');
   const { language } = useLanguage();
-  const callbacks = {
-    onAdd: e => props.onAdd(props.item._id),
-  };
+
+  const { _id, title, price } = item;
+
+  const itemLink = link || `/articles/${_id}`;
+  const handleAdd = (e) => onAdd(_id);
 
   return (
     <div className={cn()}>
-      <Link to={`/${props.item._id}`} className={cn('title')}>
-        {props.item.title}
+      <Link to={itemLink} className={cn('title')}>
+        {title}
       </Link>
       <div className={cn('actions')}>
-        <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
-        <button className={cn('btn')} onClick={callbacks.onAdd}>{translations[language].addItem}</button>
+        <div className={cn('price')}>{numberFormat(price)} ₽</div>
+        <button className={cn('btn')} onClick={handleAdd}>
+          {texts.addItem}
+        </button>
       </div>
     </div>
   );
@@ -35,10 +39,12 @@ Item.propTypes = {
     price: PropTypes.number,
   }).isRequired,
   onAdd: PropTypes.func,
+  link: PropTypes.string, 
 };
 
 Item.defaultProps = {
-  onAdd: () => { },
+  onAdd: () => {},
+  link: '', 
 };
 
 export default memo(Item);

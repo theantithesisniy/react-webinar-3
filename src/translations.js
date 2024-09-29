@@ -28,7 +28,7 @@ export const translations = {
     closeBtn: 'Close',
     // BasketTotal:
     basketTotal: 'Total',
-    changeLanguage: 'ChangeLanguage'
+    changeLanguage: 'Change language'
   },
   ru: {
     // BasketTool:

@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import { memo } from 'react';
 import './style.css';
 
-function Controls({ onAdd }) {
+function Controls({ onAdd, texts, className }) {
   return (
-    <div className="Controls">
-      <button onClick={() => onAdd()}>Добавить</button>
+    <div className={className}>
+      <button onClick={() => onAdd()}>{texts.addItem}</button>
     </div>
   );
 }
