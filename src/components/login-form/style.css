@@ -1,0 +1,23 @@
+.LoginForm {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	margin-left: 20px;
+}
+
+.LoginForm-header {
+
+	font-size: 24px;
+}
+
+.LoginForm-login {
+	width: 206px;
+	height: 23px;
+	margin-bottom: 19px;
+}
+
+.LoginForm-psw {
+	width: 206px;
+	height: 23px;
+	margin-bottom: 20px;
+}

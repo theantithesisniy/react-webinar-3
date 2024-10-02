@@ -1,0 +1,15 @@
+.LoginButton {
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 23px;
+	padding-top: 13px;
+	margin-bottom: 13px;
+	text-decoration: none;
+}
+
+
+
+.LoginButton button {
+	width: 53px;
+}
+

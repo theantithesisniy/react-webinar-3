@@ -1,5 +1,5 @@
 import StoreModule from '../module';
-
+import { buildCategoryTree } from '../../utils';
 /**
  * Состояние каталога - параметры фильтра и список товара
  */
@@ -11,11 +11,14 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
+      categories: [],
+      errorMessage: '',
       params: {
         page: 1,
         limit: 10,
         sort: 'order',
         query: '',
+        category: '',
       },
       count: 0,
       waiting: false,
@@ -36,7 +39,10 @@ class CatalogState extends StoreModule {
       validParams.limit = Math.min(Number(urlParams.get('limit')) || 10, 50);
     if (urlParams.has('sort')) validParams.sort = urlParams.get('sort');
     if (urlParams.has('query')) validParams.query = urlParams.get('query');
+
+    if (urlParams.has('category')) validParams.category = urlParams.get('category'); // Добавляем обработку категории
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
+    await this.fetchCategories();
   }
 
   /**
@@ -87,7 +93,11 @@ class CatalogState extends StoreModule {
       'search[query]': params.query,
     };
 
-    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}`);
+    if (params.category) {
+      apiParams['search[category]'] = params.category; 
+    }
+
+    const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}&lang=ru`);
     const json = await response.json();
     this.setState(
       {
@@ -99,6 +109,34 @@ class CatalogState extends StoreModule {
       'Загружен список товаров из АПИ',
     );
   }
+
+  async fetchCategories() {
+    try {
+        const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*&lang=ru');
+        
+        if (!response.ok) {
+            throw new Error(`Ошибка сети: ${response.status} ${response.statusText}`);
+        }
+
+        const json = await response.json();
+        const categories = buildCategoryTree(json.result);
+
+        this.setState({
+            ...this.getState(),
+            categories,
+        }, 'Загружены категории');
+    } catch (error) {
+        console.error('Не удалось загрузить категории:', error);
+        
+        this.setState({
+            ...this.getState(),
+            categories: [], 
+            errorMessage: error.message || 'Не удалось загрузить категории',    
+        }, 'Ошибка при загрузке категорий');
+    }
+}
+  
+
 }
 
 export default CatalogState;

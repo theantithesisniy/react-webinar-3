@@ -25,7 +25,7 @@ class ArticleState extends StoreModule {
 
     try {
       const response = await fetch(
-        `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)`,
+        `/api/v1/articles/${id}?fields=*,madeIn(title,code),category(title)&lang=ru`,
       );
       const json = await response.json();
 

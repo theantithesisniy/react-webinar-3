@@ -1,0 +1,19 @@
+.UserInfo {
+	margin-left: 20px;
+}
+
+.UserInfo-header {
+	font-size: 24px;
+}
+
+.UserInfo-name {
+	font-size: 18px;
+}
+
+.UserInfo-phone {
+	font-size: 18px;
+}
+
+.UserInfo-email {
+	font-size: 18px;
+}

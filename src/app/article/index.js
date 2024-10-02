@@ -1,16 +1,18 @@
-import { memo, useCallback, useMemo } from 'react';
+import { memo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
-import useStore from '../../hooks/use-store';
-import useSelector from '../../hooks/use-selector';
-import useTranslate from '../../hooks/use-translate';
-import useInit from '../../hooks/use-init';
-import PageLayout from '../../components/page-layout';
-import Head from '../../components/head';
-import Navigation from '../../containers/navigation';
-import Spinner from '../../components/spinner';
 import ArticleCard from '../../components/article-card';
+import Head from '../../components/head';
+import LoginButton from '../../components/login-button';
+import PageLayout from '../../components/page-layout';
+import Spinner from '../../components/spinner';
 import LocaleSelect from '../../containers/locale-select';
-
+import Navigation from '../../containers/navigation';
+import useInit from '../../hooks/use-init';
+import useSelector from '../../hooks/use-selector';
+import useStore from '../../hooks/use-store';
+import useTranslate from '../../hooks/use-translate';
+import UserLayout from '../../components/user-layout';
+import UserProfileLink from '../../components/user-profile-link';
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
@@ -38,6 +40,10 @@ function Article() {
 
   return (
     <PageLayout>
+      <UserLayout>
+        <UserProfileLink />
+        <LoginButton />
+      </UserLayout>
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

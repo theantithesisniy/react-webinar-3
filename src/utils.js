@@ -33,3 +33,27 @@ export function codeGenerator(start = 0) {
 export function numberFormat(value, locale = 'ru-RU', options = {}) {
   return new Intl.NumberFormat(locale, options).format(value);
 }
+
+/**
+ * Функция для построения дерева категорий
+ * @param {Array} categories - Исходный массив категорий
+ * @return {Array} - Дерево категорий
+ */
+export function buildCategoryTree(categories) {
+  const map = {};
+  const roots = [];
+
+  categories.items.forEach(category => {
+    map[category._id] = { ...category, children: [] }; // Создаем объект категории с массивом подкатегорий
+  });
+
+  categories.items.forEach(category => {
+    if (category.parent) {
+      map[category.parent._id].children.push(map[category._id]);
+    } else {
+      roots.push(map[category._id]); // Родительские категории добавляем в корень
+    }
+  });
+
+  return roots;
+}
