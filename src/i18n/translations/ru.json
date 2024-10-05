@@ -17,6 +17,9 @@
     "many": "товаров",
     "other": "товара"
   },
+  "login.label": "Вход",
+  "login.userLogin": "Логин",
+  "login.userPsw": "Пароль",
   "login.login": "Войти",
   "login.exit": "Выйти",
   "user.profile": "Профиль",

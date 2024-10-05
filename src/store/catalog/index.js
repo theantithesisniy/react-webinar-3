@@ -1,5 +1,5 @@
+import CategoriesState from '../categories';
 import StoreModule from '../module';
-import { buildCategoryTree } from '../../utils';
 /**
  * Состояние каталога - параметры фильтра и список товара
  */
@@ -11,7 +11,6 @@ class CatalogState extends StoreModule {
   initState() {
     return {
       list: [],
-      categories: [],
       errorMessage: '',
       params: {
         page: 1,
@@ -24,7 +23,11 @@ class CatalogState extends StoreModule {
       waiting: false,
     };
   }
-
+  constructor(store, name) {
+    super(store, name);
+    this.categories = new CategoriesState(store, 'categories');
+    this.categories.fetchCategories();
+  }
   /**
    * Инициализация параметров.
    * Восстановление из адреса
@@ -42,7 +45,6 @@ class CatalogState extends StoreModule {
 
     if (urlParams.has('category')) validParams.category = urlParams.get('category'); // Добавляем обработку категории
     await this.setParams({ ...this.initState().params, ...validParams, ...newParams }, true);
-    await this.fetchCategories();
   }
 
   /**
@@ -94,7 +96,7 @@ class CatalogState extends StoreModule {
     };
 
     if (params.category) {
-      apiParams['search[category]'] = params.category; 
+      apiParams['search[category]'] = params.category;
     }
 
     const response = await fetch(`/api/v1/articles?${new URLSearchParams(apiParams)}&lang=ru`);
@@ -109,33 +111,6 @@ class CatalogState extends StoreModule {
       'Загружен список товаров из АПИ',
     );
   }
-
-  async fetchCategories() {
-    try {
-        const response = await fetch('/api/v1/categories?fields=_id,title,parent(_id)&limit=*&lang=ru');
-        
-        if (!response.ok) {
-            throw new Error(`Ошибка сети: ${response.status} ${response.statusText}`);
-        }
-
-        const json = await response.json();
-        const categories = buildCategoryTree(json.result);
-
-        this.setState({
-            ...this.getState(),
-            categories,
-        }, 'Загружены категории');
-    } catch (error) {
-        console.error('Не удалось загрузить категории:', error);
-        
-        this.setState({
-            ...this.getState(),
-            categories: [], 
-            errorMessage: error.message || 'Не удалось загрузить категории',    
-        }, 'Ошибка при загрузке категорий');
-    }
-}
-  
 
 }
 

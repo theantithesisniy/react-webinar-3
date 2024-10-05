@@ -1,22 +1,22 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useSelector from '../../hooks/use-selector';
+const UserProfileLink = ({ loged, username }) => {
 
-const UserProfileLink = () => {
-  const select = useSelector(state => ({
-    loged: state.user.loged,
-    username: state.user.username  
-  }));
-
-  if (!select.loged) {
-    return null; 
+  if (!loged) {
+    return null;
   }
 
   return (
     <Link to="/profile" className="user-profile-link">
-      {select.username}
+      {username}
     </Link>
   );
+};
+
+UserProfileLink.propTypes = {
+  loged: PropTypes.bool.isRequired,
+  username: PropTypes.string.isRequired
 };
 
 export default UserProfileLink;

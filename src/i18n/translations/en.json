@@ -15,6 +15,9 @@
     "one": "article",
     "other": "articles"
   },
+  "login.label": "Logging in",
+  "login.userLogin": "Login",
+  "login.userPsw": "Password",
   "login.login": "log in",
   "login.exit": "exit",
   "user.profile": "Profile",

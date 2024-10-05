@@ -2,17 +2,18 @@ import { memo, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import ArticleCard from '../../components/article-card';
 import Head from '../../components/head';
-import LoginButton from '../../components/login-button';
 import PageLayout from '../../components/page-layout';
 import Spinner from '../../components/spinner';
+import UserLayout from '../../components/user-layout';
 import LocaleSelect from '../../containers/locale-select';
+import LoginButtonContainer from '../../containers/login-button';
 import Navigation from '../../containers/navigation';
+import UserProfileLinkContainer from '../../containers/user-profile-link-container';
 import useInit from '../../hooks/use-init';
 import useSelector from '../../hooks/use-selector';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import UserLayout from '../../components/user-layout';
-import UserProfileLink from '../../components/user-profile-link';
+
 /**
  * Страница товара с первичной загрузкой товара по id из url адреса
  */
@@ -41,8 +42,8 @@ function Article() {
   return (
     <PageLayout>
       <UserLayout>
-        <UserProfileLink />
-        <LoginButton />
+        <UserProfileLinkContainer />
+        <LoginButtonContainer />
       </UserLayout>
       <Head title={select.article.title}>
         <LocaleSelect />

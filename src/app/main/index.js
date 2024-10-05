@@ -1,16 +1,17 @@
 import { memo } from 'react';
 import Head from '../../components/head';
-import LoginButton from '../../components/login-button';
 import PageLayout from '../../components/page-layout';
+import UserLayout from '../../components/user-layout';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
+import LoginButtonContainer from '../../containers/login-button';
 import Navigation from '../../containers/navigation';
+import UserProfileLinkContainer from '../../containers/user-profile-link-container';
 import useInit from '../../hooks/use-init';
 import useStore from '../../hooks/use-store';
 import useTranslate from '../../hooks/use-translate';
-import UserLayout from '../../components/user-layout';
-import UserProfileLink from '../../components/user-profile-link';
+
 /**
  * Главная страница - первичная загрузка каталога
  */
@@ -30,8 +31,8 @@ function Main() {
   return (
     <PageLayout>
       <UserLayout>
-        <UserProfileLink />
-        <LoginButton />
+        <UserProfileLinkContainer />
+        <LoginButtonContainer />
       </UserLayout>
       <Head title={t('title')}>
         <LocaleSelect />

@@ -1,22 +1,21 @@
 import { memo } from 'react';
 import Head from '../../components/head';
-import LoginButton from '../../components/login-button';
-import LoginForm from '../../components/login-form';
 import PageLayout from '../../components/page-layout';
 import UserLayout from '../../components/user-layout';
-import UserProfileLink from '../../components/user-profile-link';
 import LocaleSelect from '../../containers/locale-select';
+import LoginButtonContainer from '../../containers/login-button';
+import LoginFormContainer from '../../containers/login-form-container';
 import Navigation from '../../containers/navigation';
+import UserProfileLinkContainer from '../../containers/user-profile-link-container';
 import useTranslate from '../../hooks/use-translate';
-
 function Login() {
 	const { t } = useTranslate();
 
 	return (
 		<PageLayout>
 			<UserLayout>
-				<UserProfileLink />
-				<LoginButton />
+				<UserProfileLinkContainer />
+				<LoginButtonContainer />
 			</UserLayout>
 
 			<Head title={t('title')}>
@@ -24,7 +23,7 @@ function Login() {
 			</Head>
 
 			<Navigation />
-			<LoginForm />
+			<LoginFormContainer />
 		</PageLayout>
 	);
 }

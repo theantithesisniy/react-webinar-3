@@ -6,18 +6,35 @@
 }
 
 .LoginForm-header {
-
 	font-size: 24px;
+	margin-bottom: 17px;
+}
+
+.LoginForm input {
+	width: 206px;
+	height: 23px;
 }
 
 .LoginForm-login {
 	width: 206px;
 	height: 23px;
-	margin-bottom: 19px;
 }
 
-.LoginForm-psw {
-	width: 206px;
-	height: 23px;
-	margin-bottom: 20px;
+.LoginForm-label-login {
+	font-size: 16px;
+	margin-top: 20px;
+}
+
+.LoginForm-label-psw{
+margin-top: 20px;
+}
+
+
+
+.LoginForm button {
+	margin-top: 20px;
+}
+
+.LoginForm p {
+	display: flex;
 }

@@ -1,41 +1,39 @@
-import { memo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { memo } from 'react';
 import Head from '../../components/head';
-import LoginButton from '../../components/login-button';
 import PageLayout from '../../components/page-layout';
 import UserInfo from '../../components/user-info';
 import UserLayout from '../../components/user-layout';
-import UserProfileLink from '../../components/user-profile-link';
 import LocaleSelect from '../../containers/locale-select';
+import LoginButtonContainer from '../../containers/login-button';
 import Navigation from '../../containers/navigation';
+import UserProfileLinkContainer from '../../containers/user-profile-link-container';
 import useSelector from '../../hooks/use-selector';
 import useTranslate from '../../hooks/use-translate';
 
 function UserProfile() {
 	const { t } = useTranslate();
-	const navigate = useNavigate();
 	const select = useSelector(state => ({
-		loged: state.user.loged,
+		name: state.user.profile.name,
+		email: state.user.profile.email,
+		phone: state.user.profile.phone,
 	}));
-
-	useEffect(() => {
-		if (!select.loged) {
-			navigate('/login')
-		}
-	}, [select.loged, navigate])
-
+	
 	return (
 		<PageLayout>
 			<UserLayout>
-				<UserProfileLink />
-				<LoginButton />
+				<UserProfileLinkContainer />
+				<LoginButtonContainer />
 			</UserLayout>
 			<Head title={t('title')}>
 				<LocaleSelect />
 			</Head>
 			<Navigation />
 
-			<UserInfo />
+			<UserInfo
+				email={select.email}
+				name={select.name}
+				phone={select.phone}
+				t={t} />
 		</PageLayout>
 	);
 }
