@@ -3,7 +3,7 @@ import Head from '../../components/head';
 import PageLayout from '../../components/page-layout';
 import UserLayout from '../../components/user-layout';
 import LocaleSelect from '../../containers/locale-select';
-import LoginButtonContainer from '../../containers/login-button';
+import LoginButtonContainer from '../../containers/login-button-container';
 import LoginFormContainer from '../../containers/login-form-container';
 import Navigation from '../../containers/navigation';
 import UserProfileLinkContainer from '../../containers/user-profile-link-container';

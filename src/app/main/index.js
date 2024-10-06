@@ -5,7 +5,7 @@ import UserLayout from '../../components/user-layout';
 import CatalogFilter from '../../containers/catalog-filter';
 import CatalogList from '../../containers/catalog-list';
 import LocaleSelect from '../../containers/locale-select';
-import LoginButtonContainer from '../../containers/login-button';
+import LoginButtonContainer from '../../containers/login-button-container';
 import Navigation from '../../containers/navigation';
 import UserProfileLinkContainer from '../../containers/user-profile-link-container';
 import useInit from '../../hooks/use-init';

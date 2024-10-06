@@ -25,16 +25,15 @@
 	margin-top: 20px;
 }
 
-.LoginForm-label-psw{
-margin-top: 20px;
-}
-
-
-
-.LoginForm button {
+.LoginForm-label-psw {
 	margin-top: 20px;
 }
 
 .LoginForm p {
-	display: flex;
+	margin: 0;
+	padding-bottom: 20px;;
+}
+
+.LoginForm-input {
+	margin-bottom: 20px;
 }

@@ -8,6 +8,7 @@ import StoreModule from '../module';
 
 class UserAuthState extends StoreModule {
   lastLoginAttempt = 0;
+  
   initState() {
     return {
       username: '',
@@ -16,6 +17,7 @@ class UserAuthState extends StoreModule {
         email: '',
         phone: '',
       },
+      id: localStorage.getItem('userId') || '',
       loged: false,
       errorMessage: '',
       waiting: false,
@@ -34,7 +36,7 @@ class UserAuthState extends StoreModule {
     }
   }
 
-    async login(formData) {
+  async login(formData) {
     const currentTime = Date.now();
     const MIN_DELAY = 3000;
 
@@ -64,11 +66,13 @@ class UserAuthState extends StoreModule {
 
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         const newState = {
           ...this.getState(),
           token: data.result.token,
           loged: true,
           waiting: false,
+          id: data.result.user._id,
           username: data.result.user.username,
           profile: {
             name: data.result.user.name,
@@ -78,6 +82,7 @@ class UserAuthState extends StoreModule {
           errorMessage: '',
         };
         localStorage.setItem('token', data.result.token);
+        localStorage.setItem('userId', data.result.user._id); 
         this.setState(newState, 'Авторизация успешна');
         this.fetchUserProfile(); 
       } else {
@@ -100,8 +105,6 @@ class UserAuthState extends StoreModule {
       });
     }
   }
-
-
 
   async fetchUserProfile() {
     const { token } = this.getState();
@@ -144,17 +147,12 @@ class UserAuthState extends StoreModule {
     }
   }
 
-  /**
-   * Выполняет выход пользователя из системы.
-   * @return {Promise<void>}
-   */
-
   async logout() {
     const { token } = this.getState();
 
-    // Проверка наличия токена
     if (!token) {
       console.log('Токен не найден, сброс состояния.');
+      localStorage.removeItem('userId'); 
       this.setState(this.initState(), 'Токен отсутствует, выход выполнен.');
       return;
     }
@@ -170,6 +168,7 @@ class UserAuthState extends StoreModule {
 
       if (response.ok) {
         localStorage.removeItem('token');
+        localStorage.removeItem('userId'); 
         this.setState(this.initState(), 'Выход из системы выполнен успешно');
       } else {
         const data = await response.json();

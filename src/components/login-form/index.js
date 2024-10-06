@@ -7,32 +7,32 @@ const LoginForm = ({ formData, onInputChange, onSubmit, waiting, message, errors
             <h4 className='LoginForm-header'> {t('login.label')}</h4>
 
             <label className="LoginForm-label-login" htmlFor="login">{t('login.userLogin')}</label>
-            <input  
+            <input
                 type="text"
                 name="login"
                 value={formData.login}
                 onChange={onInputChange}
-                required  
+                required
                 autoComplete="username"
             />
-            {errors.login && <div style={{ color: 'red' }}>{errors.login}</div>} 
+            {errors.login && <div style={{ color: 'red' }}>{errors.login}</div>}
 
             <label className="LoginForm-label-psw" htmlFor="password">{t('login.userPsw')}</label>
-            <input  
+            <input
+                className="LoginForm-input"
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={onInputChange}
-                required  
+                required
                 autoComplete="current-password"
             />
-            {errors.password && <div style={{ color: 'red' }}>{errors.password}</div>}
+            {message && <p style={{ color: 'red' }}>{message}</p>}
 
             <button type="submit" disabled={waiting}>
                 {waiting ? 'Загрузка...' : `${t('login.login')}`}
             </button>
 
-            {message && <p style={{ color: 'red' }}>{message}</p>}
         </form>
     );
 };

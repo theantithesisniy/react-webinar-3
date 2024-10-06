@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import RequireAuth from '../containers/require-auth';
 import useSelector from '../hooks/use-selector';
@@ -8,18 +8,23 @@ import Basket from './basket';
 import Login from './login';
 import Main from './main';
 import UserProfile from './user-profile';
-/**
- * Приложение
- * Маршрутизация по страницам и модалкам
- */
 
 function App() {
   const activeModal = useSelector(state => state.modals.name);
   const store = useStore();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    store.actions.user.init()
-  }, [store.actions.user])
+    async function initializeUser() {
+      await store.actions.user.init();
+      setLoading(false);
+    }
+    initializeUser();
+  }, [store.actions.user]);
+
+  if (loading) {
+    return <div></div>;
+  }
 
   return (
     <>

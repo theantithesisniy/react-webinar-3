@@ -22,3 +22,7 @@ Content-Type: application/json
 GET http://query.rest/api/v1/users/self?fields=*
 X-Token: de9911233f62807e70a6b02329c0c60e6115c8032e2f8cd082ff64ff42d224d9
 Content-Type: application/json
+
+# GET http://query.rest/api/v1/users/670260ad7dd498df5525d9dc?fields=*`
+# X-Token: db244e46696c6ffdd52c80f5013f4880692fc95e48bc10d3306753ac102be998
+# Content-Type: application/json
