@@ -1,5 +1,4 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-
 import * as reducers from './exports';
 import { thunk, withExtraArgument } from 'redux-thunk';
 

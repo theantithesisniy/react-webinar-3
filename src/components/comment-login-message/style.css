@@ -1,0 +1,22 @@
+
+.login-link {
+  color: #0087E9;
+  text-decoration: underline; 
+  cursor: pointer; 
+}
+
+.login-link:hover {
+  color: darkblue;
+}
+
+.cancel-link {
+	padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+	color:gray;
+	padding-top: 10px;
+	text-decoration: underline; 
+}

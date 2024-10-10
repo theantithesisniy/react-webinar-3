@@ -1,0 +1,38 @@
+.comment-item {
+	padding-top: 25px;
+	max-width: 944px;
+}
+
+.children-comments {
+  padding-left: 30px;
+}
+
+.coment-item-data-btn{
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+	color:#0087E9;
+	padding-top: 10px;
+}
+
+.comment-item-name {
+	font-size: 16px;
+	margin-right: 10px;
+}
+
+.comment-item-text {
+	margin-top: 10px;
+}
+
+.coment-item-data {
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+}
+
+.new-comment-form-btn {
+margin-left: 10px;
+}
+

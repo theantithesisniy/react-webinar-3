@@ -1,0 +1,20 @@
+.new-comment-form {
+  max-width: 944px;
+  box-sizing: border-box;
+	width: 100%;
+}
+.new-comment-form textarea {
+  width: 914px;
+  height: 80px;
+  max-width: 100%;
+  box-sizing: border-box;
+  resize: none; 
+}
+
+.new-comment-form button {
+	margin-top: 13px;
+}
+
+.new-comment-form h4 {
+	font-size: 12px;
+}
