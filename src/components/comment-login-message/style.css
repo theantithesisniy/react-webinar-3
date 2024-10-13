@@ -1,8 +1,18 @@
-
+.login-message {
+  padding-top: 30px;
+  margin-bottom: 30px;
+}
 .login-link {
-  color: #0087E9;
-  text-decoration: underline; 
-  cursor: pointer; 
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  color: #0087e9;
+  padding-top: 10px;
+  font-size: 16px;
+  text-decoration: underline;
 }
 
 .login-link:hover {
@@ -20,3 +30,4 @@
 	padding-top: 10px;
 	text-decoration: underline; 
 }
+

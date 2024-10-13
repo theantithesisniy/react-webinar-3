@@ -1,21 +1,21 @@
 /**
- * Преобразование списка в иерархию
+ * Преобразование списка в иерархию и плоский список.
  * @param list {Array} Список объектов с отношением на родителя
  * @param [key] {String} Свойство с первичным ключом
- * @returns {Array} Корневые узлы
+ * @returns {Array} Плоский массив узлов
  */
 export default function listToTree(list, key = '_id') {
   let trees = {};
-  let roots = {};
+  let roots = [];
+  let flatList = []; // Новый массив для плоского списка
+
   for (const item of list) {
     // Добавление элемента в индекс узлов и создание свойства children
     if (!trees[item[key]]) {
-      trees[item[key]] = item;
-      trees[item[key]].children = [];
-      // Ещё никто не ссылался, поэтому пока считаем корнем
-      roots[item[key]] = trees[item[key]];
+      trees[item[key]] = { ...item, children: [] }; // Создаем объект с пустым массивом children
+      flatList.push(trees[item[key]]); // Добавляем элемент в плоский массив
     } else {
-      trees[item[key]] = Object.assign(trees[item[key]], item);
+      trees[item[key]] = { ...trees[item[key]], ...item }; // Обновляем существующий элемент
     }
 
     // Если элемент имеет родителя, то добавляем его в подчиненные родителя
@@ -23,13 +23,14 @@ export default function listToTree(list, key = '_id') {
       // Если родителя ещё нет в индексе, то индекс создаётся, ведь _id родителя известен
       if (!trees[item.parent[key]]) {
         trees[item.parent[key]] = { children: [] };
-        roots[item.parent[key]] = trees[item.parent[key]];
       }
       // Добавления в подчиненные родителя
       trees[item.parent[key]].children.push(trees[item[key]]);
-      // Так как элемент добавлен к родителю, то он уже не является корневым
-      if (roots[item[key]]) delete roots[item[key]];
+    } else {
+      // Если у элемента нет родителя, добавляем его в корни
+      roots.push(trees[item[key]]);
     }
   }
-  return Object.values(roots);
+
+  return flatList; // Возвращаем плоский массив
 }

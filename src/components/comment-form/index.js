@@ -9,6 +9,7 @@ function CommentForm({ newComment, setNewComment, handleAddComment }) {
 			<textarea
 				value={newComment}
 				onChange={e => setNewComment(e.target.value)}
+				placeholder="Текст"
 			/>
 			<button onClick={handleAddComment}>Отправить</button>
 		</div>
