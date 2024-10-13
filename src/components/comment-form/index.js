@@ -11,7 +11,8 @@ function CommentForm({ newComment, setNewComment, handleAddComment }) {
 				onChange={e => setNewComment(e.target.value)}
 				placeholder="Текст"
 			/>
-			<button onClick={handleAddComment}>Отправить</button>
+			<button onClick={handleAddComment} disabled={!newComment.trim()}>Отправить</button>
+
 		</div>
 	);
 };

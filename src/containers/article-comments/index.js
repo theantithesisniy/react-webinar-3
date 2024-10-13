@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import CommentForm from '../../components/comment-form';
@@ -18,7 +18,8 @@ function Comments() {
   const [newComment, setNewComment] = useState('');
   const [showLoginMessageFor, setShowLoginMessageFor] = useState(null);
   const [isCommentsLoaded, setIsCommentsLoaded] = useState(false);
-  const [isCommentFormVisible, setIsCommentFormVisible] = useState(false);
+  const formRef = useRef(null);
+  const newCommentRef = useRef(null);
 
   const comments = useSelector(state => state.comments.items);
   const select = useSelectorCustom(state => ({
@@ -48,12 +49,22 @@ function Comments() {
   }, [id, dispatch]);
 
   useInit(() => {
-    if (!select.exists) {
-      setIsCommentFormVisible(false);
-    } else if (replyTo === id) {
-      setIsCommentFormVisible(true);
+    if (replyTo && formRef.current) {
+      formRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
     }
-  }, [select.exists, replyTo, id]);
+  }, [replyTo]);
+
+  useInit(() => {
+    if (newCommentRef.current) {
+      newCommentRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
+  }, [comments.length]);
 
   const handleReplyClick = (commentId) => {
     if (!select.exists) {
@@ -64,13 +75,9 @@ function Comments() {
   };
 
   const handleAddComment = () => {
-    // Удаляем пробелы в начале и в конце, чтобы проверить на пустоту
     const trimmedComment = newComment.trim();
-
-    // Проверяем, является ли комментарий пустым
     if (trimmedComment.length === 0) {
-      // Можно также добавить уведомление пользователю о том, что комментарий пуст
-      return; // Не отправляем пустой комментарий
+      return;
     }
     const type = replyTo === id ? 'article' : 'comment';
     dispatch(commentActions.addComment(newComment, replyTo || id, type));
@@ -98,7 +105,8 @@ function Comments() {
           showLoginMessageFor={showLoginMessageFor}
           setShowLoginMessageFor={setShowLoginMessageFor}
           LoginMessageComponent={CommentLoginMessage}
-          isCommentFormVisible={isCommentFormVisible}
+          formRef={formRef}
+          newCommentRef={newCommentRef}
         />
 
         {/* Форма добавления комментария для товара */}
@@ -107,6 +115,7 @@ function Comments() {
             newComment={newComment}
             setNewComment={setNewComment}
             handleAddComment={handleAddComment}
+            ref={newCommentRef}
           />
         )}
 

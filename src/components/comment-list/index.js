@@ -14,16 +14,14 @@ function CommentList({
 	showLoginMessageFor,
 	setShowLoginMessageFor,
 	LoginMessageComponent,
+	formRef,
+	newCommentRef,
 }) {
-	if (!Array.isArray(comments) || comments.length === 0) {
-		return <p>Загрузка комментариев...</p>;
-	}
-	
-	const renderedComments = useMemo(() => {
 
+	const renderedComments = useMemo(() => {
 		const renderedCommentsSet = new Set();
 		const renderComments = (commentsList, level = 0) => {
-			return commentsList.map(comment => {
+			return commentsList.map((comment, index) => {
 				const formattedDate = formatDate(comment.dateCreate);
 				if (!comment || !comment._id || comment.invalid) {
 					return null;
@@ -32,12 +30,16 @@ function CommentList({
 					return null;
 				}
 				renderedCommentsSet.add(comment._id);
-		
-				// Используем визуальный уровень, но ограничиваем отступ до уровня 3
+
 				const visualLevel = level > 3 ? 3 : level;
-		
+
 				return (
-					<div key={comment._id} className="comment-item" style={{ paddingLeft: `${visualLevel + 30}px` }}>
+					<div
+						key={comment._id}
+						ref={index === commentsList.length - 1 ? newCommentRef : null}
+						className="comment-item"
+						style={{ paddingLeft: `${visualLevel + 30}px` }}
+					>
 						<div className="comment-item-data">
 							<strong
 								className={select.exists && comment?.author?.profile?.name === select.name?.name
@@ -47,7 +49,7 @@ function CommentList({
 							</strong>
 							<em className="comment-item-date">{formattedDate}</em>
 							<div className="comment-item-text">{comment.text}</div>
-		
+
 							{select.exists ? (
 								<button onClick={() => handleReplyClick(comment._id)} className="coment-item-data-btn">
 									Ответить
@@ -59,29 +61,29 @@ function CommentList({
 									Ответить
 								</button>
 							)}
-		
+
 							{!select.exists && showLoginMessageFor === comment._id && (
 								<LoginMessageComponent onCancel={() => setShowLoginMessageFor(null)} />
 							)}
 						</div>
-		
+
 						{/* Отображаем дочерние комментарии если они есть */}
 						{comment.children && comment.children.length > 0 && level <= visualLevel && (
 							<div className="children-comments">
 								{renderComments(comment.children, level + 1)}
 							</div>
 						)}
-		
+
 						{/* Форма для ответа на комментарий */}
-						{replyTo === comment._id && (
-							<div className="new-comment-form">
+						{select.exists && replyTo === comment._id && (
+							<div className="new-comment-form" ref={formRef}>
 								<h4>Новый комментарий</h4>
 								<textarea
 									placeholder={`Мой ответ для ${comment?.author?.profile?.name}`}
 									value={newComment}
 									onChange={e => setNewComment(e.target.value)}
 								/>
-								<button onClick={handleAddComment}>Отправить</button>
+								<button onClick={handleAddComment} disabled={!newComment.trim()}>Отправить</button>
 								<button className="new-comment-form-btn" onClick={handleCancelReply}>Отменить</button>
 							</div>
 						)}
@@ -89,9 +91,6 @@ function CommentList({
 				);
 			});
 		};
-		
-
-		
 
 		return renderComments(comments);
 	}, [comments, replyTo, select.exists, showLoginMessageFor, newComment, handleReplyClick, setShowLoginMessageFor, LoginMessageComponent]);
